@@ -19,6 +19,10 @@ AFPCharacter::AFPCharacter()
 
 	MeshRef->SetupAttachment(Camera);
 
+	MeshLocation = MeshRef->GetComponentLocation();
+
+	MeshCrouchLocation = MeshLocation;
+
 	// Reference to the character movement component
 	MovementComponent = Cast<UCharacterMovementComponent>(GetMovementComponent());
 
@@ -36,15 +40,6 @@ AFPCharacter::AFPCharacter()
 
 	NormalCrouchSpeed = MovementComponent->MaxWalkSpeedCrouched;
 
-	// NOT BEING USED
-
-	CrouchHeight = 40.f;
-
-	NormalHeight = 88.f;
-
-	CrouchHeightSpeed = 4.f;
-	
-	MovementComponent->CrouchedHalfHeight = CrouchHeight;
 
 	// Booleans
 	bCrouching = false;
@@ -53,7 +48,19 @@ AFPCharacter::AFPCharacter()
 	bRunningLeft = false;
 	bRunningRight = false;
 	bSprinting = false;
+	bAttack = false;
 
+	// NOT BEING USED
+
+	CrouchHeight = 40.f;
+
+	MeshCrouchLocation.Z = CrouchHeight;
+
+	NormalHeight = 88.f;
+
+	CrouchHeightSpeed = 4.f;
+	
+	MovementComponent->CrouchedHalfHeight = CrouchHeight;
 
 } 
 
@@ -85,6 +92,8 @@ void AFPCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AFPCharacter::CrouchReleased);
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFPCharacter::SprintPressed);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFPCharacter::SprintReleased);
+	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AFPCharacter::AttackPressed);
+	PlayerInputComponent->BindAction("Attack", IE_Released, this, &AFPCharacter::AttackReleased);
 	PlayerInputComponent->BindAxis("MoveForward", this, &AFPCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveSide", this, &AFPCharacter::MoveSide);
 	PlayerInputComponent->BindAxis("LookSide", this, &AFPCharacter::LookSide);
@@ -153,7 +162,6 @@ void AFPCharacter::CrouchPressed()
 	bCrouching = true;
 	CrouchSlideTimeElapsed = 0.f;
 	Crouch();
-	
 }
 
 void AFPCharacter::CrouchReleased()
@@ -172,6 +180,16 @@ void AFPCharacter::SprintReleased()
 {
 	bSprinting = false;
 	MovementComponent->MaxWalkSpeed = NormalWalkSpeed;
+}
+
+void AFPCharacter::AttackPressed()
+{
+	bAttack = true;
+}
+
+void AFPCharacter::AttackReleased()
+{
+	bAttack = false;
 }
 
 void AFPCharacter::CrouchSlide(float DeltaTime)

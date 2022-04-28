@@ -15,6 +15,9 @@ public:
 	// Sets default values for this character's properties
 	AFPCharacter();
 
+	UFUNCTION(BlueprintCallable)
+	bool GetAttack() { return bAttack; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -32,6 +35,8 @@ protected:
 	void CrouchReleased();
 	void SprintPressed();
 	void SprintReleased();
+	void AttackPressed();
+	void AttackReleased();
 
 	void CrouchSlide(float DeltaTime);
 	void SmoothCrouchHeight(float DeltaTime);
@@ -51,8 +56,13 @@ private:
 	bool bRunningBWD;
 	bool bRunningLeft;
 	bool bRunningRight;
+	bool bAttack;
 
 	class UCharacterMovementComponent* MovementComponent;
+
+	FVector MeshLocation;
+
+	FVector MeshCrouchLocation;
 
 	float CrouchStartSpeed;
 	float CrouchEndSpeed;
