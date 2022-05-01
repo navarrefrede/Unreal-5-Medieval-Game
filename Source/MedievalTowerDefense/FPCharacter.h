@@ -72,6 +72,7 @@ private:
 	float CrouchSlideTimeElapsed;
 	float CrouchSlideTime;
 	float NormalCrouchSpeed;
+	float AttackTimer;
 
 
 	// Crouch height won't lerp as the crouch funciton seems to take what ever the crouch half height is at whenever function is called
@@ -79,4 +80,5 @@ private:
 	float CrouchHeight;
 	float CrouchHeightTimeElapsed;
 	float CrouchHeightSpeed;
+
 };

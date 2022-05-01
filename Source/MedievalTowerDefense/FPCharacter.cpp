@@ -40,6 +40,8 @@ AFPCharacter::AFPCharacter()
 
 	NormalCrouchSpeed = MovementComponent->MaxWalkSpeedCrouched;
 
+	AttackTimer = 0.f;
+
 
 	// Booleans
 	bCrouching = false;
@@ -79,6 +81,14 @@ void AFPCharacter::Tick(float DeltaTime)
 
 	CrouchSlide(DeltaTime);
 
+	if (AttackTimer > 0.f)
+	{
+		AttackTimer -= DeltaTime;
+	}
+	if (AttackTimer <= 0.f)
+	{
+		bAttack = false;
+	}
 }
 
 // Called to bind functionality to input
@@ -185,11 +195,15 @@ void AFPCharacter::SprintReleased()
 void AFPCharacter::AttackPressed()
 {
 	bAttack = true;
+	if (AttackTimer <= 0.f)
+	{
+		AttackTimer = 0.5f;
+	}
 }
 
 void AFPCharacter::AttackReleased()
 {
-	bAttack = false;
+
 }
 
 void AFPCharacter::CrouchSlide(float DeltaTime)
