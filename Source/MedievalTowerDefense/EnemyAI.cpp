@@ -42,7 +42,7 @@ void AEnemyAI::Tick(float DeltaTime)
 
 			if (Distance < LockOnDistance && Distance > Closeness)
 			{
-				MoveToLocation(PlayerPawn->GetActorLocation());
+				//MoveToLocation(PlayerPawn->GetActorLocation());
 			}
 			else
 			{
