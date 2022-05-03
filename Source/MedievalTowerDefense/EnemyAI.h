@@ -19,7 +19,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
-	class AActor* ProtectPoint;
+	AActor* ProtectPoint;
+	AActor* PlayerPawn;
+	TArray<AActor*> Zombies;
 
 public:
 
@@ -27,4 +29,7 @@ public:
 
 private:
 	
+	bool bFollowPlayer;
+	float LockOnDistance;
+	float Closeness;
 };

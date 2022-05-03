@@ -15,15 +15,11 @@ AZombie::AZombie()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CapsuleRef = GetCapsuleComponent();
-	
-	
-	
-
-	
 
 	bCharacterAttacking = false;
 
 	bSwordOverlap = false;
+	
 }
 
 // Called when the game starts or when spawned
@@ -72,6 +68,7 @@ void AZombie::Tick(float DeltaTime)
 			Destroy();
 		}
 	}
+
 }
 
 // Called to bind functionality to input
