@@ -40,6 +40,10 @@ void AZombie::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Sword Overlapping"));
 		bSwordOverlap = true;
+		if (CharacterRef->GetAttack()) {
+			UE_LOG(LogTemp, Warning, TEXT("Get Rekt"));
+			Destroy();
+		}
 	}
 }
 
@@ -58,16 +62,6 @@ void AZombie::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherAct
 void AZombie::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (CharacterRef)
-	{
-		bCharacterAttacking = CharacterRef->GetAttack();
-
-		if (bSwordOverlap && bCharacterAttacking)
-		{
-			Destroy();
-		}
-	}
 
 }
 
