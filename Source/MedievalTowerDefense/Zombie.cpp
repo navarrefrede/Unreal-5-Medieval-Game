@@ -24,7 +24,9 @@ AZombie::AZombie()
 
 	LifeSpan = 10.f;
 
+	Health = 100.f;
 
+	Damage = 34.f;
 	
 }
 

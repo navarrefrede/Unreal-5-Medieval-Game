@@ -46,5 +46,6 @@ public:
 private:
 	bool bCharacterAttacking;
 	bool bSwordOverlap;
-
+	float Health;
+	float Damage;
 };
