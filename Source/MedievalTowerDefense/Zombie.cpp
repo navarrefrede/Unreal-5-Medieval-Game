@@ -20,14 +20,16 @@ AZombie::AZombie()
 
 	bCharacterAttacking = false;
 
-	bSwordOverlap = false;
-
 	LifeSpan = 10.f;
+
+	BlendWeight = 10.f;
 
 	Health = 100.f;
 
-	Damage = 34.f;
+	Damage = 50.f;
 	
+
+
 }
 
 // Called when the game starts or when spawned
@@ -49,6 +51,7 @@ void AZombie::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Sword Overlapping"));
 		bSwordOverlap = true;
+
 		if (CharacterRef->GetAttack()) 
 		{
 			BodyMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);

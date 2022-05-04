@@ -23,11 +23,6 @@ protected:
 
 	class USkeletalMeshComponent* BodyMesh;
 
-	UPROPERTY(EditAnywhere, Category = "Physics")
-	float BlendWeight;
-
-	UPROPERTY(EditAnywhere, Category = "Physics")
-	float LifeSpan;
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -48,4 +43,7 @@ private:
 	bool bSwordOverlap;
 	float Health;
 	float Damage;
+	float BlendWeight;
+	float LifeSpan;
+
 };
