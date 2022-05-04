@@ -52,17 +52,6 @@ AFPCharacter::AFPCharacter()
 	bSprinting = false;
 	bAttack = false;
 
-	// NOT BEING USED
-
-	CrouchHeight = 40.f;
-
-	MeshCrouchLocation.Z = CrouchHeight;
-
-	NormalHeight = 88.f;
-
-	CrouchHeightSpeed = 4.f;
-	
-	MovementComponent->CrouchedHalfHeight = CrouchHeight;
 
 } 
 
@@ -215,19 +204,3 @@ void AFPCharacter::CrouchSlide(float DeltaTime)
 	}
 }
 
-// Doesn't Work :(
-void AFPCharacter::SmoothCrouchHeight(float DeltaTime)
-{
-	// Crouch height won't lerp as the crouch funciton seems to take what ever the crouch half height is at whenever function is called
-
-	if (CrouchHeightTimeElapsed < CrouchHeightSpeed && bCrouching)
-	{
-		MovementComponent->SetCrouchedHalfHeight(FMath::Lerp(NormalHeight, CrouchHeight, CrouchHeightTimeElapsed / CrouchHeightSpeed));
-		Crouch();
-		CrouchHeightTimeElapsed += DeltaTime;
-	}
-
-
-	UE_LOG(LogTemp, Warning, TEXT("CrouchHeightTimeElapsed: %f"), CrouchHeightTimeElapsed);
-	UE_LOG(LogTemp, Warning, TEXT("CrouchHeight: %f"), MovementComponent->CrouchedHalfHeight);
-}

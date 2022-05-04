@@ -39,7 +39,6 @@ protected:
 	void AttackReleased();
 
 	void CrouchSlide(float DeltaTime);
-	void SmoothCrouchHeight(float DeltaTime);
 
 public:	
 	// Called every frame
@@ -74,11 +73,5 @@ private:
 	float NormalCrouchSpeed;
 	float AttackTimer;
 
-
-	// Crouch height won't lerp as the crouch funciton seems to take what ever the crouch half height is at whenever function is called
-	float NormalHeight;
-	float CrouchHeight;
-	float CrouchHeightTimeElapsed;
-	float CrouchHeightSpeed;
 
 };

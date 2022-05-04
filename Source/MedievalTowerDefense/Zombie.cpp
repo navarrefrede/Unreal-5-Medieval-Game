@@ -2,11 +2,13 @@
 
 
 
+#include "Zombie.h"
 #include "Components/CapsuleComponent.h"
 #include "FPCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Zombie.h"
+#include "Components/SkeletalMeshComponent.h"
+
 
 // Sets default values
 AZombie::AZombie()
@@ -19,6 +21,10 @@ AZombie::AZombie()
 	bCharacterAttacking = false;
 
 	bSwordOverlap = false;
+
+	LifeSpan = 10.f;
+
+
 	
 }
 
@@ -30,19 +36,23 @@ void AZombie::BeginPlay()
 	CapsuleRef->OnComponentBeginOverlap.AddDynamic(this, &AZombie::OnOverlapBegin);
 	CapsuleRef->OnComponentEndOverlap.AddDynamic(this, &AZombie::OnOverlapEnd);
 
-	CharacterRef = Cast<AFPCharacter>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	BodyMesh = GetMesh();
 	
 }
 
 void AZombie::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Cast<AFPCharacter>(OtherActor) && Cast<USkeletalMeshComponent>(OtherComp))
+	AFPCharacter* CharacterRef = Cast<AFPCharacter>(OtherActor);
+	if (CharacterRef && Cast<USkeletalMeshComponent>(OtherComp))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Sword Overlapping"));
 		bSwordOverlap = true;
-		if (CharacterRef->GetAttack()) {
-			UE_LOG(LogTemp, Warning, TEXT("Get Rekt"));
-			Destroy();
+		if (CharacterRef->GetAttack()) 
+		{
+			BodyMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+			BodyMesh->SetSimulatePhysics(true);
+			BodyMesh->SetPhysicsBlendWeight(BlendWeight);
+			SetLifeSpan(LifeSpan);
 		}
 	}
 }

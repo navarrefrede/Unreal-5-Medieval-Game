@@ -21,8 +21,13 @@ protected:
 
 	class UCapsuleComponent* CapsuleRef;
 
-	class AFPCharacter* CharacterRef;
+	class USkeletalMeshComponent* BodyMesh;
 
+	UPROPERTY(EditAnywhere, Category = "Physics")
+	float BlendWeight;
+
+	UPROPERTY(EditAnywhere, Category = "Physics")
+	float LifeSpan;
 
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
